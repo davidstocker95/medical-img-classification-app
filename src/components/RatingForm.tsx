@@ -1,21 +1,30 @@
 import { useState, useEffect, useContext } from 'react';
-import { Box, Button, TextField } from '@mui/material';
+import { Box, Button, IconButton, TextField } from '@mui/material';
+import ChatIcon from '@mui/icons-material/Chat';
 import { AppContext } from '../context/AppContext';
 import { getNextImage } from '../utils/imageUtils';
 import { saveUserRating } from '../utils/userUtils';
 import type { Rating, User } from '../types';
 import RatingBar from './RatingBar';
-
+import RatingComment from './RatingComment';
 
 const ratingFormStyle = {
-  // position: 'fixed',
+  position: 'fixed',            
+  bottom: 32,                  
+  left: '50%',
+  transform: 'translateX(-50%)',
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'space-around',
   alignItems: 'center',
-  gap: 2,
-  bottom: 50,
+  gap: 7,
+  width: '100%',               
+  maxWidth: '900px',
+  padding: '16px',
+  zIndex: 10,                  
+  borderRadius: 2,
 };
+
 
 const RatingForm = () => {
   const {
@@ -27,7 +36,7 @@ const RatingForm = () => {
   } = useContext(AppContext);
 
   const [rating, setRating] = useState<Rating | null>(null);
-  const [comment, setComment] = useState<string>('');
+  const [comment, setComment] = useState<string>('sdf');
 
   useEffect(() => {
     if (image) {
@@ -50,18 +59,21 @@ const RatingForm = () => {
 
   return (
     <Box sx={ratingFormStyle}>
-      <TextField
-        label="Optional Comment"
-        multiline
-        minRows={3}
-        value={comment}
-        onChange={(e) => setComment(e.target.value)}
+      <RatingComment comment={comment} setComment={setComment} />
+      <RatingBar
+        currentRating={rating ? rating.rating : null}
+        setRating={(ratingNumber: number) =>
+          setRating((prev) =>
+            prev ? { ...prev, rating: ratingNumber } : null
+          )
+        }
       />
-      <RatingBar setRatingProp={(ratingNumber: number) => setRating(ratingNumber)} />
       <Button
         variant="contained"
+        color="primary"
         onClick={handleSubmit}
         disabled={!rating || rating.rating === null}
+        sx={{ borderRadius: 3, boxShadow: 5, width: '120px', height: '60px', typography: 'body1' }}
       >
         Submit
       </Button>
