@@ -28,21 +28,21 @@ const Header = () => {
   return (
     <AppBar position="static">
       <Toolbar>
-        <Typography variant="h5" sx={{ flexGrow: 1 }}>
+        <Typography variant="h5" sx={{ flexGrow: 1, color: 'background.paper' }}>
           Medical Image Scorer
         </Typography>
         <Stack direction="row" spacing={3}>
           <Chip
-            icon={<ImageIcon color='white' />}
+            icon={<ImageIcon color='background.paper' />}
             label={`Rated: ${user.ratings.length} / ${images.length}`}
             variant="outlined"
-            sx={{ color: 'white', borderColor: 'white', padding: 2 }}
+            sx={{ color: 'background.paper', borderColor: 'background.paper', padding: 2 }}
           />
           <Chip
-            icon={<AccessTimeIcon color='white' />}
+            icon={<AccessTimeIcon color='background.paper' />}
             label={`Time: ${minutesSpent} min`}
             variant="outlined"
-            sx={{ color: 'white', borderColor: 'white', padding: 2 }}
+            sx={{ color: 'background.paper', borderColor: 'background.paper', padding: 2 }}
           />
       </Stack>
       </Toolbar>

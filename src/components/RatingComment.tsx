@@ -71,7 +71,7 @@ const RatingComment = ({ comment, setComment, tags, setTags }: RatingCommentProp
   return (
     <>
       <Tooltip title="Leave a Comment" placement="left" enterDelay={500}>
-        <IconButton onClick={openModal} sx={getButtonStyles(comment.length > 0)}>
+        <IconButton onClick={openModal} sx={getButtonStyles(comment.length > 0 || tags.length > 0)}>
           <ChatIcon />
         </IconButton>
       </Tooltip>

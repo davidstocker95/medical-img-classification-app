@@ -1,44 +1,22 @@
 import { createTheme } from '@mui/material/styles';
 
 const theme = createTheme({
+  // Use black as the default background color and use viridis color palette
+  // for the primary color scheme
   palette: {
     background: {
       default: 'black', 
+      paper: '#f0ebf0',
     },
     primary: { 
       main: '#440154',
       light: '#f2dcf7',
       dark: '#7e009c',
     },
-    secondary: { main: '#074799' },
-    info: { main: '#E1FFBB' },
-    success: { main: '#009990' },
+    secondary: { main: '#31688E' },
+    info: { main: '#FDE725' },
+    success: { main: '#35B779' },
   },
 });
 
 export default theme;
-
-
-/*
-Step	Hex	Example
-1	#440154	
-Dark Purple
-2	#482777	
-Purple
-3	#3E4989	
-Indigo
-4	#31688E	
-Blue
-5	#26828E	
-Cyan-Blue
-6	#1F9E89	
-Teal
-7	#35B779	
-Green
-8	#6DCD59	
-Lime
-9	#B4DE2C	
-Yellow-Lime
-10	#FDE725	
-Bright Yellow
-*/

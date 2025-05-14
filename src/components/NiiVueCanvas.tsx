@@ -90,13 +90,6 @@ const NiiVueCanvas = () => {
     window.removeEventListener('mouseup', handleMouseUp);
   };
 
-
-  const adjustZoom = (delta: number) => {
-    const newZoom = Math.min(Math.max(zoomLevel + delta, 0.2), 3); // Clamp between 0.2x and 3x
-    setZoomLevel(newZoom);
-    nvRef.current?.setScale(newZoom);
-  };
-
   return (
     <>
       {/* Draggable Controls Box */}
@@ -143,19 +136,6 @@ const NiiVueCanvas = () => {
             ))}
           </Select>
         </FormControl>
-
-        <Box sx={{ display: 'flex', justifyContent: 'center', gap: 1, mt: 1 }}>
-          <Tooltip title="Zoom Out">
-            <IconButton size="small" onClick={() => adjustZoom(-0.1)}>
-              <ZoomOutIcon />
-            </IconButton>
-          </Tooltip>
-          <Tooltip title="Zoom In">
-            <IconButton size="small" onClick={() => adjustZoom(0.1)}>
-              <ZoomInIcon />
-            </IconButton>
-          </Tooltip>
-        </Box>
       </Box>
 
       {/* Canvas */}
