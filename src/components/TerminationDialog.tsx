@@ -1,10 +1,12 @@
 import { useContext, useState, useEffect } from 'react';
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+} from '@mui/material';
 
 import { AppContext } from '../context/AppContext';
 import { hasUserRatedAllImages } from '../utils/ratingUtils';
@@ -12,52 +14,50 @@ import { resetUserRatingsBrowser } from '../utils/userUtils';
 
 const TerminationDialog = () => {
   const { user, setUser, images } = useContext(AppContext);
-  const [isRatingComplete, setIsRatingComplete] = useState(
-    hasUserRatedAllImages(images, user)
-  );
+  const [isRatingComplete, setIsRatingComplete] = useState(false);
 
   useEffect(() => {
-    const complete = hasUserRatedAllImages(images, user);
-    setIsRatingComplete(complete);
+    setIsRatingComplete(hasUserRatedAllImages(images, user));
   }, [images, user]);
 
   const restartRating = () => {
-    setIsRatingComplete(false);
-    setUser((prevUser) => ({
-      ...prevUser,
-      ratings: [],
-    }));
+    setUser((prevUser) => ({ ...prevUser, ratings: [] }));
     resetUserRatingsBrowser(user);
+    setIsRatingComplete(false);
   };
 
+  const numberOfRatedImages = user.ratings.length;
   return (
     <Dialog
-        open={isRatingComplete}
-        onClose={() => {}}
-        aria-labelledby="termination-dialog"
-        aria-describedby="termination-dialog"
-      >
-        <DialogTitle id="termination-dialog-title">
-          {"Rating Complete!"}
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText id="number-of-images">
-            You have rated {user.ratings.length} images.
-          </DialogContentText>
-          <DialogContentText id="number-of-images">
-            Thank you for your feedback!
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button 
-            variant="contained"
-              color="primary"
-            onClick={restartRating}
-          >
-            Restart
-          </Button>
-        </DialogActions>
-      </Dialog>
+      open={isRatingComplete}
+      onClose={() => {}}
+      aria-labelledby="termination-dialog-title"
+      slotProps={{
+        paper: {
+          sx: {
+          borderRadius: 5,
+          px: 4,
+          py: 3,
+          textAlign: 'center',
+        },
+      }
+      }}
+    >
+      <DialogTitle id="termination-dialog-title">Rating Complete!</DialogTitle>
+
+      <DialogContent>
+        <DialogContentText>
+          You have rated {numberOfRatedImages} {(numberOfRatedImages === 1) ? "image": "images"}.
+        </DialogContentText>
+        <DialogContentText>Thank you for your work!</DialogContentText>
+      </DialogContent>
+
+      <DialogActions sx={{ justifyContent: 'center', mt: 2 }}>
+        <Button variant="contained" color="primary" onClick={restartRating}>
+          Restart
+        </Button>
+      </DialogActions>
+    </Dialog>
   );
 };
 
