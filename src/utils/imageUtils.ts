@@ -7,6 +7,8 @@ export function getImages(): Image[] {
 			id: index,
 			name: url.split('/').pop() && 'Unknown',
 			url: url,
+			sliceType: 'multiplanar',
+			colorMap: 'grey',
 		} as Image;
 	});
 };

@@ -1,6 +1,6 @@
 import { useRef, useEffect, useContext } from 'react';
 import { Box } from '@mui/material';
-import { Niivue } from '@niivue/niivue';
+import { Niivue, SLICE_TYPE } from '@niivue/niivue';
 import { AppContext } from '../context/AppContext';
 
 const NiiVueCanvas = () => {
@@ -14,16 +14,13 @@ const NiiVueCanvas = () => {
     if (!nvRef.current) {
       nvRef.current = new Niivue();
       nvRef.current.attachToCanvas(canvasRef.current);
-
-      // nvRef.current.opts.sliceType = nvRef.current.sliceTypeMultiplanar; // set to a single view
-      nvRef.current.setSliceType(nvRef.current.sliceTypeMultiplanar); // choose axial/sagittal/coronal
-
+      nvRef.current.setSliceType(image.sliceType);
     }
 
     nvRef.current.loadVolumes([
       {
         url: image.url,
-        colorMap: 'viridis',
+        colorMap: image.colorMap
       },
     ]);
 
