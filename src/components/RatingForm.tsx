@@ -25,7 +25,6 @@ const RatingForm = () => {
 
   const handleSubmit = () => {
     if (isSubmitDisabled) return;
-
     setUser((prevUser: User) => saveUserRatingBrowser(prevUser, rating));
     setImage(getNextImage(images, user));
   };

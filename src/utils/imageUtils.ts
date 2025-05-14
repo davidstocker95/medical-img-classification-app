@@ -1,4 +1,3 @@
-import { SLICE_TYPE } from '@niivue/niivue';
 import imageUrls from '../data/images';
 import type { Image, User } from '../types';
 
@@ -8,8 +7,6 @@ export function getImages(): Image[] {
 			id: index,
 			name: url.split('/').pop() && 'Unknown',
 			url: url,
-			sliceType: SLICE_TYPE.MULTIPLANAR,
-			colorMap: 'grey',
 		} as Image;
 	});
 };
