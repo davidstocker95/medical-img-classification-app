@@ -1,86 +1,83 @@
 import { useState } from 'react';
+
 import { Box, Button, IconButton, TextField, Modal } from '@mui/material';
 import ChatIcon from '@mui/icons-material/Chat';
 import AddIcon from '@mui/icons-material/Add';
 import DoDisturbAltIcon from '@mui/icons-material/DoDisturbAlt';
-
-export const modalBoxStyle = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  bgcolor: 'background.paper',
-  borderRadius: 5,
-  maxWidth: 400,     
-  minWidth: 400,     
-  height: 'auto',    
-  maxHeight: '80vh',  
-  overflowY: 'auto', 
-  p: 4,
-};
-
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import { getButtonStyles, modalBoxStyle } from './RatingComment.styles';
 
 interface RatingCommentProps {
   comment: string;
   setComment: (comment: string) => void;
 }
-const RatingComment = ({ comment, setComment }: RatingCommentProps ) => {
+
+const RatingComment = ({ comment, setComment }: RatingCommentProps) => {
   const [modalOpen, setModalOpen] = useState(false);
-  const [localComment, setLocalComment] = useState('');
+  const [localComment, setLocalComment] = useState(comment);
 
   const handleOpenModal = () => {
     setLocalComment(comment);
     setModalOpen(true);
   };
 
-  const hanldeCloseModal = () => {
+  const handleCloseModal = () => {
     setModalOpen(false);
   };
 
+  const handleClearComment = () => {
+    setLocalComment('');
+  };
+
   const handleSaveComment = () => {
-    setComment(comment);
-    hanldeCloseModal();
+    setComment(localComment);
+    setModalOpen(false);
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      handleSaveComment();
+    }
   };
 
   return (
     <>
-      <IconButton
-        variant={(comment.length > 0) ? 'contained' : 'outlined'}
-        color="primary"
-        onClick={() => setModalOpen(true)}
-        sx={{ 
-          borderRadius: 3, 
-          boxShadow: 5, 
-          width: '60px', 
-          height: '60px', 
-          typography: 'body1', 
-          '&:hover': {
-            backgroundColor: 'primary.dark',
-          } 
-        }}
-      >
+      <IconButton onClick={handleOpenModal} sx={getButtonStyles(comment.length > 0)}>
         <ChatIcon />
       </IconButton>
 
-      <Modal open={modalOpen} onClose={hanldeCloseModal}>
+      <Modal open={modalOpen} onClose={handleCloseModal}>
         <Box sx={modalBoxStyle}>
           <TextField
             label="Comment"
             multiline
-            maxRows={4}
-            variant="standard"
+            minRows={4}
+            variant="outlined"
             fullWidth
             value={localComment}
             onChange={(e) => setLocalComment(e.target.value)}
+            onKeyDown={handleKeyDown}
           />
 
           <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 5 }}>
-            <Button variant="outlined" color="error" startIcon={<DoDisturbAltIcon />} onClick={hanldeCloseModal}>
+            <Button
+              variant="outlined"
+              startIcon={<DoDisturbAltIcon />}
+              onClick={handleCloseModal}
+            >
               Cancel
             </Button>
-            <Button 
-              variant="contained" 
-              startIcon={<AddIcon />} 
+            <Button
+              variant="outlined"
+              startIcon={<DeleteOutlineIcon />}
+              onClick={handleClearComment}
+            >
+              Clear
+            </Button>
+            <Button
+              variant="contained"
+              startIcon={<AddIcon />}
               onClick={handleSaveComment}
             >
               Save

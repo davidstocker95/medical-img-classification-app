@@ -1,6 +1,5 @@
 import { useState, useEffect, useContext } from 'react';
-import { Box, Button, IconButton, TextField } from '@mui/material';
-import ChatIcon from '@mui/icons-material/Chat';
+import { Box, Button } from '@mui/material';
 import { AppContext } from '../context/AppContext';
 import { getNextImage } from '../utils/imageUtils';
 import { saveUserRating } from '../utils/userUtils';
@@ -20,11 +19,11 @@ const ratingFormStyle = {
   gap: 7,
   width: '100%',               
   maxWidth: '900px',
-  padding: '16px',
+  padding: '16px 32px 16px 32px',
   zIndex: 10,                  
-  borderRadius: 2,
+  borderRadius: 5,
+  bgcolor: 'background.paper',
 };
-
 
 const RatingForm = () => {
   const {
