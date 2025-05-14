@@ -5,7 +5,7 @@ import Header from './components/Header';
 import NiiVueCanvas from './components/NiiVueCanvas';
 import RatingForm from './components/RatingForm';
 
-const theme = createTheme();
+import { theme } from './theme';
 
 function App() {
  
