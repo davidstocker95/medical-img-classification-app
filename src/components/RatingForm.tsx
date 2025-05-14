@@ -3,7 +3,7 @@ import { Box, Button, Tooltip } from '@mui/material';
 
 import { AppContext } from '../context/AppContext';
 import { getNextImage } from '../utils/imageUtils';
-import { saveUserRating } from '../utils/userUtils';
+import { saveUserRatingBrowser } from '../utils/userUtils';
 import type { Rating, User } from '../types';
 import ScoreBar from './ScoreBar';
 import RatingComment from './RatingComment';
@@ -26,7 +26,7 @@ const RatingForm = () => {
   const handleSubmit = () => {
     if (isSubmitDisabled) return;
 
-    setUser((prevUser: User) => saveUserRating(prevUser, rating));
+    setUser((prevUser: User) => saveUserRatingBrowser(prevUser, rating));
     setImage(getNextImage(images, user));
   };
 

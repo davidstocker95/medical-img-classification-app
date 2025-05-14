@@ -1,11 +1,11 @@
 import { createContext } from 'react';
 import type { ContextProps } from '../types/context';
 
-import { getOrCreateUser } from '../utils/userUtils';
+import { getOrCreateUserBrowser } from '../utils/userUtils';
 import { getImages } from '../utils/imageUtils';
 
 const defaultContextProps: ContextProps = {
-  user: getOrCreateUser(),
+  user: getOrCreateUserBrowser(),
   setUser: () => {},
   
   image: undefined,
