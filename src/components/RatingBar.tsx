@@ -1,14 +1,30 @@
 import { Box, IconButton } from '@mui/material';
 
 type RatingBarProps = {
-  setRatingProp: (rating: number) => void;
-  maxRating?: number; // Optional: default to 5
+  currentRating: number | null;
+  setRating: (rating: number) => void;
 };
 
 type RatingButtonProps = {
   rating: number;
-  setRatingProp: (rating: number) => void;
+  setRating: (rating: number) => void;
+  selected?: boolean;
 };
+
+const getRatingButtonStyle = (selected: boolean) => ({
+  mx: 1,
+  width: '40px',
+  height: '40px',
+  borderRadius: '20px',
+  padding: 1,
+  typography: 'body1',
+  border: '1px solid',
+  borderColor: 'primary.main',
+  backgroundColor: selected ? 'primary.main' : 'transparent',
+  color: selected ? 'white' : 'primary.main',
+  '&:hover': {
+    backgroundColor: selected ? 'primary.main' : 'primary.light',}
+})
 
 const ratingBoxStyle = {
   // position: 'fixed',
@@ -20,30 +36,29 @@ const ratingBoxStyle = {
   boxShadow: 5,
   borderRadius: 3,
   p: 1.5,
-  zIndex: 1,
   // bottom: 50,
 };
 
-const RatingButton = ({ rating, setRatingProp }: RatingButtonProps) => {
+const RatingButton = ({ rating, setRating, selected = false }: RatingButtonProps) => {
   return (
     <IconButton
-      variant="contained"
+      variant={ selected ? "contained": "outlined"}
       color="primary"
-      onClick={() => setRatingProp(rating)}
-      sx={{ mx: 1, width: '50px', height: '50px', border: '1px solid', borderRadius: 3, padding: 1 }}
+      onClick={() => setRating(rating)}
+      sx={getRatingButtonStyle(selected)}
     >
       {rating}
     </IconButton>
   );
 };
 
-const RatingBar = ({ setRatingProp, maxRating = 10 }: RatingBarProps) => {
-  const ratings = Array.from({ length: maxRating }, (_, i) => i + 1);
+const RatingBar = ({ currentRating, setRating }: RatingBarProps) => {
+  const ratings = Array.from({ length: 10 }, (_, i) => i + 1);
 
   return (
     <Box sx={ratingBoxStyle}>
       {ratings.map((rating) => (
-        <RatingButton key={rating} rating={rating} setRatingProp={setRatingProp} />
+        <RatingButton key={rating} rating={rating} setRating={setRating} selected={currentRating === rating} />
       ))}
     </Box>
   );
