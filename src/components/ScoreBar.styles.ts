@@ -1,5 +1,5 @@
 
-export const getRatingButtonStyle = (selected: boolean) => ({
+export const getScoreButtonStyle = (selected: boolean) => ({
   mx: 1,
   width: '40px',
   height: '40px',
@@ -15,7 +15,7 @@ export const getRatingButtonStyle = (selected: boolean) => ({
   }
 })
 
-export const ratingBoxStyle = {
+export const scoreBoxStyle = {
   display: 'flex',
   flexDirection: 'row',
   left: '50%',

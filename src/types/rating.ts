@@ -1,6 +1,9 @@
 
 export interface Rating {
   imageId: number;
-  rating: number | null;           // 1–10
-  comment?: string;
+  score: number | null;      
+  comment: string;
+  tags: RatingTag[];           
 }
+
+export type RatingTag = 'ambiguous' | 'artifact' | 'non-pathalogical' ;
