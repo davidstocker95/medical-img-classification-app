@@ -48,7 +48,16 @@ const RatingComment = ({ comment, setComment }: RatingCommentProps ) => {
         variant={(comment.length > 0) ? 'contained' : 'outlined'}
         color="primary"
         onClick={() => setModalOpen(true)}
-        sx={{ borderRadius: 3, boxShadow: 5, width: '60px', height: '60px', typography: 'body1' }}
+        sx={{ 
+          borderRadius: 3, 
+          boxShadow: 5, 
+          width: '60px', 
+          height: '60px', 
+          typography: 'body1', 
+          '&:hover': {
+            backgroundColor: 'primary.dark',
+          } 
+        }}
       >
         <ChatIcon />
       </IconButton>

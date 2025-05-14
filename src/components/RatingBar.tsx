@@ -23,7 +23,8 @@ const getRatingButtonStyle = (selected: boolean) => ({
   backgroundColor: selected ? 'primary.main' : 'transparent',
   color: selected ? 'white' : 'primary.main',
   '&:hover': {
-    backgroundColor: selected ? 'primary.main' : 'primary.light',}
+    backgroundColor: selected ? 'primary.dark' : 'primary.light',
+  }
 })
 
 const ratingBoxStyle = {

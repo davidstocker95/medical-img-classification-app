@@ -5,7 +5,11 @@ const theme = createTheme({
     background: {
       default: 'black', 
     },
-    primary: { main: '#440154	' },
+    primary: { 
+      main: '#440154',
+      light: '#f2dcf7',
+      dark: '#7e009c',
+    },
     secondary: { main: '#074799' },
     info: { main: '#E1FFBB' },
     success: { main: '#009990' },
