@@ -5,6 +5,8 @@ import ChatIcon from '@mui/icons-material/Chat';
 import AddIcon from '@mui/icons-material/Add';
 import DoDisturbAltIcon from '@mui/icons-material/DoDisturbAlt';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import Tooltip from "@mui/material/Tooltip";
+
 import { getButtonStyles, modalBoxStyle } from './RatingComment.styles';
 
 interface RatingCommentProps {
@@ -43,9 +45,11 @@ const RatingComment = ({ comment, setComment }: RatingCommentProps) => {
 
   return (
     <>
-      <IconButton onClick={handleOpenModal} sx={getButtonStyles(comment.length > 0)}>
-        <ChatIcon />
-      </IconButton>
+      <Tooltip title="Leave a Comment" placement="left" enterDelay={500}>
+        <IconButton onClick={handleOpenModal} sx={getButtonStyles(comment.length > 0)}>
+          <ChatIcon />
+        </IconButton>
+      </Tooltip>
 
       <Modal open={modalOpen} onClose={handleCloseModal}>
         <Box sx={modalBoxStyle}>

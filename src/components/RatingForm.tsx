@@ -1,29 +1,14 @@
 import { useState, useEffect, useContext } from 'react';
 import { Box, Button } from '@mui/material';
+import Tooltip from "@mui/material/Tooltip";
+
 import { AppContext } from '../context/AppContext';
 import { getNextImage } from '../utils/imageUtils';
 import { saveUserRating } from '../utils/userUtils';
 import type { Rating, User } from '../types';
 import RatingBar from './RatingBar';
 import RatingComment from './RatingComment';
-
-const ratingFormStyle = {
-  position: 'fixed',            
-  bottom: 32,                  
-  left: '50%',
-  transform: 'translateX(-50%)',
-  display: 'flex',
-  flexDirection: 'row',
-  justifyContent: 'space-around',
-  alignItems: 'center',
-  gap: 7,
-  width: '100%',               
-  maxWidth: '900px',
-  padding: '16px 32px 16px 32px',
-  zIndex: 10,                  
-  borderRadius: 5,
-  bgcolor: 'background.paper',
-};
+import { ratingFormStyle } from './RatingForm.styles';
 
 const RatingForm = () => {
   const {
@@ -36,6 +21,8 @@ const RatingForm = () => {
 
   const [rating, setRating] = useState<Rating | null>(null);
   const [comment, setComment] = useState<string>('sdf');
+
+  const isSubmitDisabled = !rating || rating.rating === null;
 
   useEffect(() => {
     if (image) {
@@ -55,7 +42,7 @@ const RatingForm = () => {
     setUser((prevUser: User) => saveUserRating(prevUser, fullRating));
     setImage(getNextImage(images, user));
   };
-
+  
   return (
     <Box sx={ratingFormStyle}>
       <RatingComment comment={comment} setComment={setComment} />
@@ -67,15 +54,23 @@ const RatingForm = () => {
           )
         }
       />
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={handleSubmit}
-        disabled={!rating || rating.rating === null}
-        sx={{ borderRadius: 3, boxShadow: 5, width: '120px', height: '60px', typography: 'body1' }}
+      <Tooltip 
+        title={isSubmitDisabled ? "Select a rating first": "Submit your rating"}
+        placement="right" 
+        enterDelay={500}
       >
-        Submit
-      </Button>
+        <span style={{ display: 'inline-flex' }}> {/* Fixes Tooltip on disabled buttons */}
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleSubmit}
+            disabled={isSubmitDisabled}
+            sx={{ borderRadius: 3, boxShadow: 5, height: '60px', typography: 'body1' }}
+          >
+            Submit
+          </Button>
+        </span>
+      </Tooltip>
     </Box>
   );
 };
