@@ -1,5 +1,7 @@
 import { useRef, useEffect, useContext, useState } from 'react';
-import { Box, Select, MenuItem, FormControl, InputLabel, Typography } from '@mui/material';
+import { Box, Select, MenuItem, FormControl, InputLabel, Typography, IconButton, Tooltip } from '@mui/material';
+import ZoomInIcon from '@mui/icons-material/ZoomIn';
+import ZoomOutIcon from '@mui/icons-material/ZoomOut';
 import { Niivue, SLICE_TYPE } from '@niivue/niivue';
 import { AppContext } from '../context/AppContext';
 
@@ -28,6 +30,7 @@ const NiiVueCanvas = () => {
 
   const [sliceType, setSliceType] = useState<SLICE_TYPE>(SLICE_TYPE.MULTIPLANAR);
   const [colorMap, setColorMap] = useState<'gray' | 'viridis' | 'inferno'>('gray');
+  const [zoomLevel, setZoomLevel] = useState(1);
 
   // Drag state
   const [position, setPosition] = useState({ top: 80, left: window.innerWidth - 250 });
@@ -87,6 +90,13 @@ const NiiVueCanvas = () => {
     window.removeEventListener('mouseup', handleMouseUp);
   };
 
+
+  const adjustZoom = (delta: number) => {
+    const newZoom = Math.min(Math.max(zoomLevel + delta, 0.2), 3); // Clamp between 0.2x and 3x
+    setZoomLevel(newZoom);
+    nvRef.current?.setScale(newZoom);
+  };
+
   return (
     <>
       {/* Draggable Controls Box */}
@@ -102,7 +112,7 @@ const NiiVueCanvas = () => {
           flexDirection: 'column',
           alignItems: 'center',
           gap: 2,
-          backgroundColor: 'rgb(251, 251, 251)',
+          backgroundColor: 'background.paper',
           borderRadius: 2,
           p: 2,
           boxShadow: 3,
@@ -133,6 +143,19 @@ const NiiVueCanvas = () => {
             ))}
           </Select>
         </FormControl>
+
+        <Box sx={{ display: 'flex', justifyContent: 'center', gap: 1, mt: 1 }}>
+          <Tooltip title="Zoom Out">
+            <IconButton size="small" onClick={() => adjustZoom(-0.1)}>
+              <ZoomOutIcon />
+            </IconButton>
+          </Tooltip>
+          <Tooltip title="Zoom In">
+            <IconButton size="small" onClick={() => adjustZoom(0.1)}>
+              <ZoomInIcon />
+            </IconButton>
+          </Tooltip>
+        </Box>
       </Box>
 
       {/* Canvas */}
