@@ -1,8 +1,11 @@
-import { Box, Select, MenuItem, FormControl, InputLabel, Typography } from '@mui/material';
+import { useState } from 'react';
+import { Box } from '@mui/material';
+
 import { useDraggablePanel } from '../hooks/useDraggablePanel';
 import { getNiiVueControlsStyles } from './NiiVueControls.styles';
 import { SliceTypeMap } from '../types';
 import type { ColorMap, XYPosition, BoxDimensions } from '../types';
+import { ControlMinimized, ControlHeader, ControlSelector } from './NiiVueControlsComponents';
 
 type Props = {
   sliceType: string;
@@ -13,64 +16,55 @@ type Props = {
 
 const colorMaps: ColorMap[] = ['viridis', 'inferno', 'gray'];
 
+const fullDimension: BoxDimensions = { width: 220, height: 180 };
+const minimizedDimension: BoxDimensions = { width: 92, height: 92 };
+
 const NiiVueControls = ({
   sliceType,
   onSliceTypeChange,
   colorMap,
   onColorMapChange,
-}: Props) => {  
-  const panelDimension: BoxDimensions = { width: 220, height: 180 };
-  const initialPanelMargin = Math.min(window.innerWidth, window.innerHeight) / 20;
-  const initialPosition: XYPosition = { 
-    x: window.innerWidth - panelDimension.width - initialPanelMargin,
-    y: window.innerHeight - panelDimension.height - initialPanelMargin, 
+}: Props) => {
+  const [isMinimized, setIsMinimized] = useState(false);
+
+  const initialMargin = Math.min(window.innerWidth, window.innerHeight) / 20;
+  const initialPosition: XYPosition = {
+    x: window.innerWidth - fullDimension.width - initialMargin,
+    y: window.innerHeight - fullDimension.height - initialMargin,
   };
-  const { position, handleMouseDown } = useDraggablePanel(initialPosition, panelDimension);
+
+  const dimensions = isMinimized ? minimizedDimension : fullDimension;
+  const { position, handleMouseDown, adjustPositionForSizeChange } =
+    useDraggablePanel(initialPosition, dimensions);
+
+  const toggleMinimize = () => {
+    const from = isMinimized ? minimizedDimension : fullDimension;
+    const to = isMinimized ? fullDimension : minimizedDimension;
+    adjustPositionForSizeChange(from, to);
+    setIsMinimized(!isMinimized);
+  };
 
   return (
-    <Box
-      onMouseDown={handleMouseDown}
-      sx={getNiiVueControlsStyles(position, panelDimension)}
-    >
-      <Typography 
-        variant="body1" 
-        sx={{ mb: 1 }} 
-        onMouseDown={(e) => e.preventDefault()}
-      >
-        Image Controls
-      </Typography>
-
-      <FormControl size="small" fullWidth>
-        <InputLabel>Slice Type</InputLabel>
-        <Select 
-          value={sliceType} 
-          onChange={(e) => onSliceTypeChange(e.target.value)} 
-          onMouseDown={(e) => e.stopPropagation()}
-          label="Slice Type"
-        >
-          {Object.keys(SliceTypeMap).map((label) => (
-            <MenuItem key={label} value={label}>
-              {label}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
-
-      <FormControl size="small" fullWidth>
-        <InputLabel>Color Map</InputLabel>
-        <Select 
-          value={colorMap} 
-          onChange={(e) => onColorMapChange(e.target.value)} 
-          onMouseDown={(e) => e.stopPropagation()}
-          label="Color Map"
-        >
-          {colorMaps.map((map) => (
-            <MenuItem key={map} value={map}>
-              {map}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
+    <Box onMouseDown={handleMouseDown} sx={getNiiVueControlsStyles(position, dimensions)}>
+      {isMinimized
+        ? <ControlMinimized toggleMinimize={toggleMinimize} />
+        : (
+          <>
+            <ControlHeader toggleMinimize={toggleMinimize} />
+            <ControlSelector
+              label="Slice Type"
+              value={sliceType}
+              onChange={onSliceTypeChange}
+              options={Object.keys(SliceTypeMap)}
+            />
+            <ControlSelector<ColorMap>
+              label="Color Map"
+              value={colorMap}
+              onChange={onColorMapChange}
+              options={colorMaps}
+            />
+          </>
+        )}
     </Box>
   );
 };

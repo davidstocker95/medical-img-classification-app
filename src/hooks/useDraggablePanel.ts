@@ -2,7 +2,7 @@ import { useState, useRef, useCallback, useEffect } from 'react';
 import type { XYPosition, BoxDimensions } from '../types';
 
 export function useDraggablePanel(
-	initialPosition: XYPosition,
+  initialPosition: XYPosition,
   panelDimensions: BoxDimensions,
   borderMargin: number = 6
 ) {
@@ -28,7 +28,7 @@ export function useDraggablePanel(
     const newTop = Math.max(0, Math.min(e.clientY - offset.current.y, maxTop));
 
     setPosition({ x: newLeft, y: newTop });
-  }, []);
+  }, [panelDimensions]);
 
   const handleMouseUp = useCallback(() => {
     isDragging.current = false;
@@ -43,6 +43,18 @@ export function useDraggablePanel(
       y: Math.max(0, Math.min(prev.y, maxTop)),
     }));
   }, [panelDimensions, borderMargin]);
+
+  const adjustPositionForSizeChange = useCallback(
+    (from: BoxDimensions, to: BoxDimensions) => {
+      const deltaX = from.width - to.width;
+      const deltaY = from.height - to.height;
+      setPosition(prev => ({
+        x: prev.x + deltaX,
+        y: prev.y + deltaY,
+      }));
+    },
+    []
+  );
 
   useEffect(() => {
     window.addEventListener('mousemove', handleMouseMove);
@@ -59,5 +71,6 @@ export function useDraggablePanel(
   return {
     position,
     handleMouseDown,
+    adjustPositionForSizeChange,
   };
 }
