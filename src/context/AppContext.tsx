@@ -1,18 +1,17 @@
-import { createContext } from 'react';
-import type { ContextProps } from '../types/context';
+/**
+ * AppContext provides shared state across the application (user, image, image list).
+ */
 
-import { getOrCreateUserBrowser } from '../utils/userUtils';
-import { getImages } from '../utils/imageUtils';
+import { createContext } from "react";
+import type { ContextProps } from "../types/context";
 
-const defaultContextProps: ContextProps = {
-  user: getOrCreateUserBrowser(),
+export const AppContext = createContext<ContextProps>({
+  user: { id: "", ratings: [] }, // safe placeholder
   setUser: () => {},
-  
+
   image: undefined,
   setImage: () => {},
 
-  images: getImages(),
+  images: [],
   setImages: () => {},
-};
-
-export const AppContext = createContext<ContextProps>(defaultContextProps);
+});
