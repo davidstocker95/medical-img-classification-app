@@ -10,7 +10,6 @@ type ScoreButtonProps = {
 const ScoreButton = ({ score, setScore, selected = false }: ScoreButtonProps) => {
   return (
     <IconButton
-      variant={ selected ? "contained": "outlined"}
       color="primary"
       onClick={() => setScore(score)}
       sx={getScoreButtonStyle(selected)}

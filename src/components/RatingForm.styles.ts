@@ -1,7 +1,7 @@
 
 export const ratingFormStyle = {
   position: 'fixed',            
-  bottom: 32,                  
+  bottom: 50,                  
   left: '50%',
   transform: 'translateX(-50%)',
   display: 'flex',

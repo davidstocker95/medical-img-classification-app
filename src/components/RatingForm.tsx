@@ -4,7 +4,7 @@ import { Box, Button, Tooltip } from '@mui/material';
 import { AppContext } from '../context/AppContext';
 import { getNextImage } from '../utils/imageUtils';
 import { saveUserRatingBrowser } from '../utils/userUtils';
-import type { Rating, User } from '../types';
+import type { Rating } from '../types';
 import ScoreBar from './ScoreBar';
 import RatingComment from './RatingComment';
 import { ratingFormStyle } from './RatingForm.styles';
@@ -25,8 +25,12 @@ const RatingForm = () => {
 
   const handleSubmit = () => {
     if (isSubmitDisabled) return;
-    setUser((prevUser: User) => saveUserRatingBrowser(prevUser, rating));
-    setImage(getNextImage(images, user));
+
+    const updatedUser = saveUserRatingBrowser({ ...user }, rating);
+    setUser(updatedUser);
+
+    const nextImage = getNextImage(images, updatedUser);
+    setImage(nextImage);
   };
 
   // Generic updater for rating fields
