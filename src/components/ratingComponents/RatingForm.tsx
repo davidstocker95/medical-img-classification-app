@@ -34,12 +34,16 @@ const RatingForm = () => {
 
   const isSubmitDisabled = rating?.score == null;
 
+  // Initialize the rating when the image changes
   useEffect(() => {
     if (image) {
       setRating(createDefaultRating(image.id));
     }
   }, [image]);
 
+  // Handle submit action
+  // If the user has already rated the image, update the existing rating
+  // Set the next image to be rated
   const handleSubmit = () => {
     if (isSubmitDisabled) return;
 

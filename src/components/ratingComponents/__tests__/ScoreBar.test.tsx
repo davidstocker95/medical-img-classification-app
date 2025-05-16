@@ -1,6 +1,6 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import { vi } from "vitest";
-import ScoreBar from "../ratingComponents/ScoreBar";
+import ScoreBar from "../ScoreBar";
 
 /**
  * Basic test to ensure score buttons render and respond to clicks.

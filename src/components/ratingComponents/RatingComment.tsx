@@ -49,6 +49,7 @@ const RatingComment = ({ comment, setComment, tags, setTags }: RatingCommentProp
   const [localComment, setLocalComment] = useState(comment);
   const [localTags, setLocalTags] = useState<RatingTag[]>(tags);
 
+  // Open the modal and set local state to current values
   const openModal = () => {
     setLocalComment(comment);
     setLocalTags(tags);
@@ -56,18 +57,21 @@ const RatingComment = ({ comment, setComment, tags, setTags }: RatingCommentProp
   };
 
   const closeModal = () => setModalOpen(false);
-
+  
+  // Handler to reset comment and tags
   const clearAll = () => {
     setLocalComment("");
     setLocalTags([]);
   };
 
+  // Save changes to the comment and tags, then close the modal
   const saveChanges = () => {
     setComment(localComment);
     setTags(localTags);
     closeModal();
   };
 
+  // Handle Enter key to save changes, Shift+Enter for new line
   const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
@@ -75,6 +79,8 @@ const RatingComment = ({ comment, setComment, tags, setTags }: RatingCommentProp
     }
   };
 
+  // Toggle tag selection
+  // If tag is already selected, remove it; otherwise, add it
   const toggleTag = (tag: RatingTag) => {
     setLocalTags((prev) =>
       prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]

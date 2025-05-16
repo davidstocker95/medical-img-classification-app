@@ -7,6 +7,17 @@ type ScoreButtonProps = {
   selected?: boolean;
 };
 
+/**
+ * ScoreButton
+ *
+ * Renders a single score button with a click handler.
+ * Highlights the selected score.
+ *
+ * Props:
+ * @param {number} score - The score value
+ * @param {(score: number) => void} setScore - Updates the selected score
+ * @param {boolean} [selected=false] - Indicates if the button is selected
+ */
 const ScoreButton = ({ score, setScore, selected = false }: ScoreButtonProps) => (
   <IconButton
     color="primary"

@@ -21,6 +21,7 @@ export const ratingFormStyle = {
   borderRadius: 5,
   bgcolor: "background.paper",
 
+  // Ensures good structure on narrow screens
   "@media (max-width: 600px)": {
     columnGap: 3,
     rowGap: 2,
