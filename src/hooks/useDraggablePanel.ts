@@ -46,7 +46,7 @@ export function useDraggablePanel(
     [position]
   );
 
-  // Global mousemove handler: moves panel while mouse is dragging
+  // Mousemove handler: moves panel while mouse is dragging
   const handleMouseMove = useCallback(
     (e: MouseEvent) => {
       if (!isDragging.current) return;

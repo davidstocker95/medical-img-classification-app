@@ -1,8 +1,16 @@
 import { createTheme } from "@mui/material/styles";
 
 /**
+ * theme
+ *
  * Application-wide MUI theme using a dark background
- * and viridis-inspired primary color scheme.
+ * and a Viridis-inspired color palette.
+ *
+ * Features:
+ * - Dark background (`black`) for main surfaces
+ * - Custom primary color family based on purples
+ * - Additional accent colors from the Viridis color map
+ * - Uses `"Segoe UI Symbol"` as the global font
  */
 const theme = createTheme({
   typography: {

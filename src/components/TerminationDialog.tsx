@@ -23,24 +23,30 @@ const terminationDialogStyle = {
 /**
  * TerminationDialog
  *
- * This modal appears when the user has rated all available images.
- * It displays the total count of rated images and offers an option to restart the rating process.
+ * Displays a modal dialog when the user has rated all images.
+ * Offers an option to restart the process and clears saved ratings.
  *
- * Behavior:
- * - Shows automatically when `user.ratings.length === images.length`
- * - Clicking "Restart" clears local ratings and fetches the next image
+ * Features:
+ * - Auto-appears when all images are rated
+ * - Shows count of rated images
+ * - Allows restarting with reset state
  *
  * Context:
- * - Reads `user`, `images`, `setUser`, `setImage` from AppContext
+ * - Uses AppContext to read and update user, images, and image state
+ *
+ * Notes:
+ * - Session is cleared in localStorage as well as in-memory
  */
 const TerminationDialog = () => {
   const { user, setUser, images, setImage } = useContext(AppContext);
   const [isRatingComplete, setIsRatingComplete] = useState(false);
 
+  // Check if the user has rated all images 
   useEffect(() => {
     setIsRatingComplete(hasUserRatedAllImages(images, user));
   }, [images, user]);
 
+  // Restart the rating process
   const restartRating = () => {
     const updatedUser = { ...user, ratings: [] };
     setUser(updatedUser);

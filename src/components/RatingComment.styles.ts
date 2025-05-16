@@ -1,5 +1,8 @@
 /**
  * Styles for the comment toggle button.
+ * 
+ * @param {boolean} commentAvailable - Indicates if the comment is available.
+ * @returns {object} - The style object for the button.
  */
 export const getButtonStyles = (commentAvailable: boolean) => ({
   borderRadius: 3,

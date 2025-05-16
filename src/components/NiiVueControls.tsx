@@ -25,14 +25,33 @@ const minimizedDimension: BoxDimensions = { width: 92, height: 92 };
 
 /**
  * NiiVueControls
- *
- * A draggable, minimizable panel that lets the user:
- * - Switch slice view mode (axial, coronal, etc.)
- * - Change colormap used for rendering
- * - Collapse panel to a toggle button
- *
- * Integrates with `useDraggablePanel` to support drag and position clamping.
+ * 
+ * A draggable, minimizable control panel for slice view and colormap selection in NIfTI image viewers.
+ * 
+ * Features/Responsibilities:
+ * - Allows the user to select different slice views (e.g., axial, coronal)
+ * - Enables switching between predefined color maps for visualization
+ * - Supports minimizing the panel to a compact icon/button
+ * - Draggable interface with position clamping via `useDraggablePanel`
+ * 
+ * Props:
+ * @param {string} sliceType - The currently selected slice view type
+ * @param {(val: string) => void} onSliceTypeChange - Callback to update the selected slice type
+ * @param {ColorMap} colorMap - The currently active color map
+ * @param {(val: ColorMap) => void} onColorMapChange - Callback to update the color map
+ * 
+ * State:
+ * - isMinimized: Toggles whether the control panel is collapsed or fully visible
+ * 
+ * Events:
+ * - onMouseDown: Captures drag events to reposition the panel
+ * - toggleMinimize: Handles toggling between minimized and full panel views
+ * 
+ * Notes:
+ * - Uses `useDraggablePanel` hook to maintain and update panel position
+ * - Adjusts position dynamically to accommodate dimension changes during minimize/expand
  */
+
 const NiiVueControls = ({
   sliceType,
   onSliceTypeChange,
@@ -48,10 +67,12 @@ const NiiVueControls = ({
     y: window.innerHeight - fullDimension.height - initialMargin,
   };
 
+  // Use draggable panel hook to manage position and size
   const dimensions = isMinimized ? minimizedDimension : fullDimension;
   const { position, handleMouseDown, adjustPositionForSizeChange } =
     useDraggablePanel(initialPosition, dimensions);
 
+  // Adjust position when the panel is minimized or expanded
   const toggleMinimize = () => {
     const from = isMinimized ? minimizedDimension : fullDimension;
     const to = isMinimized ? fullDimension : minimizedDimension;

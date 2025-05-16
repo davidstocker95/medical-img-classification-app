@@ -31,12 +31,18 @@ interface RatingCommentProps {
  * RatingComment
  *
  * A modal interface for adding a comment and optional tags to an image rating.
- * Opens from a tooltip-enabled button.
+ * Opens via a tooltip-enhanced icon button.
  *
  * Features:
- * - Text input with Enter-to-save
- * - Selectable tags (toggle chips)
- * - Clear, cancel, and save actions
+ * - Editable comment field with Enter-to-save support
+ * - Selectable tags using chips
+ * - Actions: clear, cancel, and save
+ *
+ * Props:
+ * @param {string} comment - Current comment text
+ * @param {(comment: string) => void} setComment - Updates the comment
+ * @param {RatingTag[]} tags - Current set of selected tags
+ * @param {(tags: RatingTag[]) => void} setTags - Updates the selected tags
  */
 const RatingComment = ({ comment, setComment, tags, setTags }: RatingCommentProps) => {
   const [modalOpen, setModalOpen] = useState(false);

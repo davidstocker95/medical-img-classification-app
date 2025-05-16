@@ -25,10 +25,18 @@ const headerChipStyle = {
  * - Chip showing number of rated images vs. total
  * - Chip showing total time spent (in minutes)
  *
- * Time is tracked via a 60-second interval and persisted in localStorage.
- *
+ * State:
+ * - minutesSpent: Tracks the total time user has spent in the app
+ * 
  * Context:
  * - Reads `user.ratings` and `images` from AppContext
+ * 
+ * Side Effects:
+ * - Sets up a timer that increments stored time every minute
+ * - Persists time data in localStorage
+ * 
+ * Notes:
+ * - Time tracking persists across sessions via localStorage
  */
 const Header = () => {
   const { user, images } = useContext(AppContext);

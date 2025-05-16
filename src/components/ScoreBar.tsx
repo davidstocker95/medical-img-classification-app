@@ -27,8 +27,12 @@ const SCORES = Array.from({ length: 10 }, (_, i) => i + 1);
 /**
  * ScoreBar
  *
- * Renders a row of 1–10 score buttons.
- * Highlights the current selection.
+ * Renders a horizontal row of numeric score buttons (1–10).
+ * Highlights the selected score and handles updates.
+ *
+ * Props:
+ * @param {number | null} currentScore - The score currently selected
+ * @param {(score: number) => void} setScore - Updates the selected score
  */
 const ScoreBar = ({ currentScore, setScore }: ScoreBarProps) => (
   <Box sx={scoreBoxStyle}>

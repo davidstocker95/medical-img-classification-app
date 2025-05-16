@@ -1,5 +1,8 @@
 /**
  * Styles for individual score buttons.
+ * 
+ * @param {boolean} selected - Indicates if the button is selected.
+ * @return {object} - The style object for the button.
  */
 export const getScoreButtonStyle = (selected: boolean) => ({
   mx: 1,

@@ -14,15 +14,19 @@ import { ratingFormStyle } from "./RatingForm.styles";
 /**
  * RatingForm
  *
- * Central UI for submitting a score and optional comment for the current image.
+ * Central UI for submitting a score and optional feedback for the current image.
  *
  * Features:
  * - Score selection (1–10)
- * - Comment and tag selection (via modal)
- * - Tooltip-enabled Submit button
+ * - Comment and tag modal via `RatingComment`
+ * - Tooltip-enabled Submit button with validation
  *
  * Context:
- * - Uses AppContext to update user ratings and load next image
+ * - Uses AppContext to access and update user, image, and image list
+ *
+ * Notes:
+ * - Automatically generates a default rating on image load
+ * - Submit is disabled until a score is selected
  */
 const RatingForm = () => {
   const { user, setUser, image, setImage, images } = useContext(AppContext);
