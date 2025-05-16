@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { Box } from "@mui/material";
 
-import { useDraggablePanel } from "../hooks/useDraggablePanel";
+import { useDraggablePanel } from "../../hooks/useDraggablePanel";
 import { getNiiVueControlsStyles } from "./NiiVueControls.styles";
-import { SliceTypeMap } from "../types";
-import type { ColorMap, XYPosition, BoxDimensions } from "../types";
+import { SliceTypeMap } from "../../types";
+import type { ColorMap, XYPosition, BoxDimensions } from "../../types";
 import {
   ControlMinimized,
   ControlHeader,

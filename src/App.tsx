@@ -2,7 +2,7 @@ import { CssBaseline } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 
 import Header from "./components/Header";
-import NiiVueCanvas from "./components/NiiVueCanvas";
+import NiiVueCanvas from "./components/niiVueComponents/NiiVueCanvas";
 import RatingForm from "./components/RatingForm";
 import TerminationDialog from "./components/TerminationDialog";
 

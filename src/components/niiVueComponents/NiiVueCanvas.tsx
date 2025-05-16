@@ -2,10 +2,10 @@ import { useRef, useEffect, useContext, useState } from "react";
 import { Box } from "@mui/material";
 import { Niivue } from "@niivue/niivue";
 
-import { AppContext } from "../context/AppContext";
+import { AppContext } from "../../context/AppContext";
 import NiiVueControls from "./NiiVueControls";
-import { SliceTypeMap } from "../types";
-import type { ColorMap } from "../types";
+import { SliceTypeMap } from "../../types";
+import type { ColorMap } from "../../types";
 
 /**
  * NiiVueCanvas

@@ -1,4 +1,4 @@
-import type { XYPosition, BoxDimensions } from "../types";
+import type { XYPosition, BoxDimensions } from "../../types";
 
 /**
  * Returns style object for draggable control panel.
