@@ -11,9 +11,17 @@ import {
 import { AppContext } from '../context/AppContext';
 import { hasUserRatedAllImages } from '../utils/ratingUtils';
 import { resetUserRatingsBrowser } from '../utils/userUtils';
+import { getNextImage } from '../utils/imageUtils';
+
+const terminationDialogStyle = {
+  borderRadius: 5,
+  px: 4,
+  py: 3,
+  textAlign: 'center',
+};
 
 const TerminationDialog = () => {
-  const { user, setUser, images } = useContext(AppContext);
+  const { user, setUser, images, setImage } = useContext(AppContext);
   const [isRatingComplete, setIsRatingComplete] = useState(false);
 
   useEffect(() => {
@@ -21,8 +29,12 @@ const TerminationDialog = () => {
   }, [images, user]);
 
   const restartRating = () => {
-    setUser((prevUser) => ({ ...prevUser, ratings: [] }));
+    const updatedUser = { ...user, ratings: [] };
+    setUser(updatedUser);
     resetUserRatingsBrowser(user);
+
+    const nextImage = getNextImage(images, updatedUser);
+    setImage(nextImage);
     setIsRatingComplete(false);
   };
 
@@ -31,19 +43,9 @@ const TerminationDialog = () => {
     <Dialog
       open={isRatingComplete}
       onClose={() => {}}
-      aria-labelledby="termination-dialog-title"
-      slotProps={{
-        paper: {
-          sx: {
-          borderRadius: 5,
-          px: 4,
-          py: 3,
-          textAlign: 'center',
-        },
-      }
-      }}
+      slotProps={{ paper: { sx: terminationDialogStyle }}}
     >
-      <DialogTitle id="termination-dialog-title">Rating Complete!</DialogTitle>
+      <DialogTitle >Rating Complete!</DialogTitle>
 
       <DialogContent>
         <DialogContentText>
