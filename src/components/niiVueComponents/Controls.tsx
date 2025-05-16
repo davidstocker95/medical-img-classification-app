@@ -2,14 +2,12 @@ import { useState } from "react";
 import { Box } from "@mui/material";
 
 import { useDraggablePanel } from "../../hooks/useDraggablePanel";
-import { getNiiVueControlsStyles } from "./NiiVueControls.styles";
+import { getControlsBoxStyle } from "./Controls.styles";
 import { SliceTypeMap } from "../../types";
 import type { ColorMap, XYPosition, BoxDimensions } from "../../types";
-import {
-  ControlMinimized,
-  ControlHeader,
-  ControlSelector,
-} from "./NiiVueControlsComponents";
+import { ControlMinimized } from "./ControlsMinimized";
+import { ControlHeader } from "./ControlsHeader";
+import { ControlSelector } from "./ControlsSelector";
 
 type Props = {
   sliceType: string;
@@ -24,7 +22,7 @@ const fullDimension: BoxDimensions = { width: 220, height: 180 };
 const minimizedDimension: BoxDimensions = { width: 92, height: 92 };
 
 /**
- * NiiVueControls
+ * Controls
  * 
  * A draggable, minimizable control panel for slice view and colormap selection in NIfTI image viewers.
  * 
@@ -52,7 +50,7 @@ const minimizedDimension: BoxDimensions = { width: 92, height: 92 };
  * - Adjusts position dynamically to accommodate dimension changes during minimize/expand
  */
 
-const NiiVueControls = ({
+const Controls = ({
   sliceType,
   onSliceTypeChange,
   colorMap,
@@ -81,7 +79,7 @@ const NiiVueControls = ({
   };
 
   return (
-    <Box onMouseDown={handleMouseDown} sx={getNiiVueControlsStyles(position, dimensions)}>
+    <Box onMouseDown={handleMouseDown} sx={getControlsBoxStyle(position, dimensions)}>
       {isMinimized ? (
         <ControlMinimized toggleMinimize={toggleMinimize} />
       ) : (
@@ -105,4 +103,4 @@ const NiiVueControls = ({
   );
 };
 
-export default NiiVueControls;
+export default Controls;

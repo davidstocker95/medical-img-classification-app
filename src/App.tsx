@@ -2,7 +2,7 @@ import { CssBaseline } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 
 import Header from "./components/Header";
-import NiiVueCanvas from "./components/niiVueComponents/NiiVueCanvas";
+import ImageCanvas from "./components/niiVueComponents/ImageCanvas";
 import RatingForm from "./components/RatingForm";
 import TerminationDialog from "./components/TerminationDialog";
 
@@ -24,7 +24,7 @@ function App() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Header />
-      <NiiVueCanvas />
+      <ImageCanvas />
       <RatingForm />
       <TerminationDialog />
     </ThemeProvider>

@@ -7,7 +7,7 @@ import type { XYPosition, BoxDimensions } from "../../types";
  * @param {BoxDimensions} dimensions - The dimensions of the panel.
  * @returns {object} - The style object for the control panel.
  */
-export const getNiiVueControlsStyles = (
+export const getControlsBoxStyle = (
   position: XYPosition,
   dimensions: BoxDimensions
 ) => ({
@@ -28,17 +28,3 @@ export const getNiiVueControlsStyles = (
   boxShadow: 3,
   cursor: "move",
 });
-
-/**
- * Styles for minimized panel toggle button.
- */
-export const niiVueMinimizedControlsStyles = {
-  borderRadius: 3,
-  width: "60px",
-  height: "60px",
-  color: "primary.main",
-  backgroundColor: "background.paper",
-  "&:hover": {
-    backgroundColor: "primary.light",
-  },
-};

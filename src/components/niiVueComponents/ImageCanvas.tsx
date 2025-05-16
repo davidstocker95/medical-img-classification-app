@@ -3,12 +3,12 @@ import { Box } from "@mui/material";
 import { Niivue } from "@niivue/niivue";
 
 import { AppContext } from "../../context/AppContext";
-import NiiVueControls from "./NiiVueControls";
+import Controls from "./Controls";
 import { SliceTypeMap } from "../../types";
 import type { ColorMap } from "../../types";
 
 /**
- * NiiVueCanvas
+ * ImageCanvas
  *
  * Renders the NiiVue viewer inside a canvas element and overlays a draggable
  * control panel for adjusting slice type and color map.
@@ -21,7 +21,7 @@ import type { ColorMap } from "../../types";
  * Context:
  * - Reads `image` from AppContext.
  */
-const NiiVueCanvas = () => {
+const ImageCanvas = () => {
   const { image } = useContext(AppContext);
 
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -77,7 +77,7 @@ const NiiVueCanvas = () => {
 
   return (
     <>
-      <NiiVueControls
+      <Controls
         sliceType={sliceType}
         onSliceTypeChange={setSliceType}
         colorMap={colorMap}
@@ -97,4 +97,4 @@ const NiiVueCanvas = () => {
   );
 };
 
-export default NiiVueCanvas;
+export default ImageCanvas;
