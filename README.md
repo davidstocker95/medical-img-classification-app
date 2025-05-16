@@ -3,6 +3,9 @@
 This is a React + TypeScript application built for scoring medical images using [NiiVue](https://github.com/niivue/niivue), a WebGL-based medical image viewer. It allows anonymous users to view medical images, rate them, and optionally add comments and tags. The app uses localStorage to persist user state between sessions. 
 
 
+![app-snapshot](./doc/images/app-snapshot.png)
+*Figure 1: Snapshot of the app.*
+
 ## Features
 
 - View medical images in 2D and 3D using **NiiVue**
