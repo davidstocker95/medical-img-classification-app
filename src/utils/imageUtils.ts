@@ -1,17 +1,24 @@
-import imageUrls from '../data/images';
-import type { Image, User } from '../types';
+import { imageUrls } from "../data/images";
+import type { Image, User } from "../types";
 
+/**
+ * Converts raw image URLs into structured Image objects.
+ */
 export function getImages(): Image[] {
-	return imageUrls.map((url: string, index: number) => {
-		return {
-			id: index,
-			name: url.split('/').pop() && 'Unknown',
-			url: url,
-		} as Image;
-	});
-};
+  return imageUrls.map((url, index) => {
+    const name = url.split("/").pop() ?? "Unknown";
+    return {
+      id: index,
+      name,
+      url,
+    };
+  });
+}
 
+/**
+ * Returns the next unrated image for a given user.
+ */
 export function getNextImage(images: Image[], user: User): Image | undefined {
-	const ratedImages = user.ratings.map((rating) => rating.imageId);
-	return images.find((image) => !ratedImages.includes(image.id));
+  const ratedIds = new Set(user.ratings.map((r) => r.imageId));
+  return images.find((img) => !ratedIds.has(img.id));
 }
