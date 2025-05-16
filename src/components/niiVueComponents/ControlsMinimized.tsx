@@ -4,7 +4,7 @@ import TuneIcon from "@mui/icons-material/Tune";
 /**
  * Styles for minimized panel toggle button.
  */
-export const minimizedControlIconStyle = {
+const minimizedControlIconStyle = {
   borderRadius: 3,
   width: "60px",
   height: "60px",

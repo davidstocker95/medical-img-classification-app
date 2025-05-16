@@ -1,11 +1,11 @@
 import { useState, useEffect, useContext } from "react";
 import { Box, Button, Tooltip } from "@mui/material";
 
-import { AppContext } from "../context/AppContext";
-import { getNextImage } from "../utils/imageUtils";
-import { saveUserRatingBrowser } from "../utils/userUtils";
-import { createDefaultRating } from "../utils/ratingUtils";
-import type { Rating } from "../types";
+import { AppContext } from "../../context/AppContext";
+import { getNextImage } from "../../utils/imageUtils";
+import { saveUserRatingBrowser } from "../../utils/userUtils";
+import { createDefaultRating } from "../../utils/ratingUtils";
+import type { Rating } from "../../types";
 
 import RatingComment from "./RatingComment";
 import ScoreBar from "./ScoreBar";

@@ -15,8 +15,8 @@ import AddIcon from "@mui/icons-material/Add";
 import DoDisturbAltIcon from "@mui/icons-material/DoDisturbAlt";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 
-import { getButtonStyles, modalBoxStyle } from "./RatingComment.styles";
-import type { RatingTag } from "../types";
+import { getButtonStyle, modalBoxStyle } from "./RatingComment.styles";
+import type { RatingTag } from "../../types";
 
 const RATING_TAGS: RatingTag[] = ["ambiguous", "artifact", "non-pathalogical"];
 
@@ -84,7 +84,7 @@ const RatingComment = ({ comment, setComment, tags, setTags }: RatingCommentProp
   return (
     <>
       <Tooltip title="Leave a Comment" placement="left" enterDelay={500}>
-        <IconButton onClick={openModal} sx={getButtonStyles(comment.length > 0 || tags.length > 0)}>
+        <IconButton onClick={openModal} sx={getButtonStyle(comment.length > 0 || tags.length > 0)}>
           <ChatIcon />
         </IconButton>
       </Tooltip>

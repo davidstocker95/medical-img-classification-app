@@ -4,7 +4,7 @@
  * @param {boolean} commentAvailable - Indicates if the comment is available.
  * @returns {object} - The style object for the button.
  */
-export const getButtonStyles = (commentAvailable: boolean) => ({
+export const getButtonStyle = (commentAvailable: boolean) => ({
   borderRadius: 3,
   boxShadow: 5,
   width: "60px",

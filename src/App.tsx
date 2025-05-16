@@ -3,7 +3,7 @@ import { ThemeProvider } from "@mui/material/styles";
 
 import Header from "./components/Header";
 import ImageCanvas from "./components/niiVueComponents/ImageCanvas";
-import RatingForm from "./components/RatingForm";
+import RatingForm from "./components/ratingComponents/RatingForm";
 import TerminationDialog from "./components/TerminationDialog";
 
 import { theme } from "./theme";
