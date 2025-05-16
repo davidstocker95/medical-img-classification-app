@@ -14,7 +14,7 @@ const NiiVueCanvas = () => {
   const prevImageRef = useRef<string | undefined>(undefined);
 
   const [sliceType, setSliceType] = useState<string>('Multiplanar');
-  const [colorMap, setColorMap] = useState<ColorMap>('gray');
+  const [colorMap, setColorMap] = useState<ColorMap>('viridis');
 
   useEffect(() => {
     if (!canvasRef.current) return;
@@ -75,7 +75,7 @@ const NiiVueCanvas = () => {
           display: 'flex',
           height: '40vh',
           width: '100%',
-          mt: '100px',
+          mt: '16vh',
         }} >
         <canvas ref={canvasRef} />
       </Box>

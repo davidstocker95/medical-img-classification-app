@@ -11,7 +11,7 @@ type Props = {
   onColorMapChange: (val: ColorMap) => void;
 };
 
-const colorMaps: ColorMap[] = ['gray', 'viridis', 'inferno'];
+const colorMaps: ColorMap[] = ['viridis', 'inferno', 'gray'];
 
 const NiiVueControls = ({
   sliceType,

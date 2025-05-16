@@ -1,17 +1,22 @@
 import { createTheme } from '@mui/material/styles';
 
 const theme = createTheme({
+  typography: {
+    fontFamily: [
+      '"Segoe UI Symbol"',
+    ].join(','),
+  },
   // Use black as the default background color and use viridis color palette
   // for the primary color scheme
   palette: {
     background: {
       default: 'black', 
-      paper: '#f0ebf0',
+      paper: '#d8d4d9',
     },
     primary: { 
       main: '#440154',
-      light: '#f2dcf7',
-      dark: '#7e009c',
+      light: '#e4d1e8',
+      dark: '#8f39a3',
     },
     secondary: { main: '#31688E' },
     info: { main: '#FDE725' },

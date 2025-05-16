@@ -7,11 +7,11 @@ export interface Image {
 }
 
 export const SliceTypeMap: Record<string, SLICE_TYPE> = {
+  'Multiplanar': SLICE_TYPE.MULTIPLANAR,
+  '3D Render': SLICE_TYPE.RENDER,
   'Axial': SLICE_TYPE.AXIAL,
   'Coronal': SLICE_TYPE.CORONAL,
   'Sagittal': SLICE_TYPE.SAGITTAL,
-  'Multiplanar': SLICE_TYPE.MULTIPLANAR,
-  '3DRender': SLICE_TYPE.RENDER,
 };
 
-export type ColorMap = 'gray' | 'viridis' | 'inferno';
+export type ColorMap = 'viridis' | 'inferno' |'gray';

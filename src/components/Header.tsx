@@ -31,7 +31,7 @@ const Header = () => {
   return (
     <AppBar position="static">
       <Toolbar>
-        <Typography variant="h5" sx={{ flexGrow: 1, color: 'background.paper' }}>
+        <Typography variant="h4" sx={{ flexGrow: 1, color: 'background.paper' }}>
           Medical Image Scorer
         </Typography>
         <Stack direction="row" spacing={3}>
