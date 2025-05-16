@@ -1,17 +1,19 @@
 import { useState, useEffect, useContext } from 'react';
-import {
-  AppBar,
-  Toolbar,
-  Typography,
-  Box, 
-  Chip, 
-  Stack
-} from '@mui/material';
+import { AppBar, Toolbar, Typography, Chip, Stack } from '@mui/material';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import ImageIcon from '@mui/icons-material/Image';
+
 import { AppContext } from '../context/AppContext';
 import { incrementStoredTime, getStoredTime } from '../utils/timeTracker';
 
+const headerChipStyle = {
+  color: 'background.paper',
+  borderColor: 'background.paper',
+  padding: 2,
+  '& .MuiChip-icon': {
+    color: 'background.paper',
+  },
+};
 
 const Header = () => {
   const { user, images } = useContext(AppContext);
@@ -29,21 +31,21 @@ const Header = () => {
   return (
     <AppBar position="static">
       <Toolbar>
-        <Typography variant="h5" sx={{ flexGrow: 1 }}>
+        <Typography variant="h4" sx={{ flexGrow: 1, color: 'background.paper' }}>
           Medical Image Scorer
         </Typography>
         <Stack direction="row" spacing={3}>
           <Chip
-            icon={<ImageIcon color='white' />}
+            icon={<ImageIcon />}
             label={`Rated: ${user.ratings.length} / ${images.length}`}
             variant="outlined"
-            sx={{ color: 'white', borderColor: 'white', padding: 2 }}
+            sx={headerChipStyle}
           />
           <Chip
-            icon={<AccessTimeIcon color='white' />}
+            icon={<AccessTimeIcon />}
             label={`Time: ${minutesSpent} min`}
             variant="outlined"
-            sx={{ color: 'white', borderColor: 'white', padding: 2 }}
+            sx={headerChipStyle}
           />
       </Stack>
       </Toolbar>

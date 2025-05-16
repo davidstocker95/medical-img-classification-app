@@ -1,71 +1,79 @@
 import { useState, useEffect, useContext } from 'react';
-import { Box, Button, TextField } from '@mui/material';
+import { Box, Button, Tooltip } from '@mui/material';
+
 import { AppContext } from '../context/AppContext';
 import { getNextImage } from '../utils/imageUtils';
-import { saveUserRating } from '../utils/userUtils';
-import type { Rating, User } from '../types';
-import RatingBar from './RatingBar';
-
-
-const ratingFormStyle = {
-  // position: 'fixed',
-  display: 'flex',
-  flexDirection: 'row',
-  justifyContent: 'space-around',
-  alignItems: 'center',
-  gap: 2,
-  bottom: 50,
-};
+import { saveUserRatingBrowser } from '../utils/userUtils';
+import type { Rating } from '../types';
+import ScoreBar from './ScoreBar';
+import RatingComment from './RatingComment';
+import { ratingFormStyle } from './RatingForm.styles';
+import { createDefaultRating } from '../utils/ratingUtils';
 
 const RatingForm = () => {
-  const {
-    user,
-    setUser,
-    image,
-    setImage,
-    images
-  } = useContext(AppContext);
-
+  const { user, setUser, image, setImage, images } = useContext(AppContext);
   const [rating, setRating] = useState<Rating | null>(null);
-  const [comment, setComment] = useState<string>('');
 
+  const isSubmitDisabled = rating?.score == null;
+
+  // Set up rating when image changes
   useEffect(() => {
     if (image) {
-      setRating({ imageId: image.id, rating: null });
-      setComment('');
+      setRating(createDefaultRating(image.id));
     }
   }, [image]);
 
   const handleSubmit = () => {
-    if (!rating || rating.rating === null) return;
+    if (isSubmitDisabled) return;
 
-    const fullRating: Rating = {
-      ...rating,
-      comment,
-    };
+    const updatedUser = saveUserRatingBrowser({ ...user }, rating);
+    setUser(updatedUser);
 
-    setUser((prevUser: User) => saveUserRating(prevUser, fullRating));
-    setImage(getNextImage(images, user));
+    const nextImage = getNextImage(images, updatedUser);
+    setImage(nextImage);
+  };
+
+  // Generic updater for rating fields
+  const setRatingField = <K extends keyof Rating>(key: K, value: Rating[K]) => {
+    setRating((prev) => (prev ? { ...prev, [key]: value } : null));
   };
 
   return (
-    <Box sx={ratingFormStyle}>
-      <TextField
-        label="Optional Comment"
-        multiline
-        minRows={3}
-        value={comment}
-        onChange={(e) => setComment(e.target.value)}
-      />
-      <RatingBar setRatingProp={(ratingNumber: number) => setRating(ratingNumber)} />
-      <Button
-        variant="contained"
-        onClick={handleSubmit}
-        disabled={!rating || rating.rating === null}
-      >
-        Submit
-      </Button>
-    </Box>
+    <>
+      {image && rating && (
+        <Box sx={ratingFormStyle}>
+          <RatingComment
+            comment={rating.comment}
+            setComment={(c) => setRatingField('comment', c)}
+            tags={rating.tags}
+            setTags={(t) => setRatingField('tags', t)}
+          />
+
+          <ScoreBar
+            currentScore={rating.score}
+            setScore={(s) => setRatingField('score', s)}
+          />
+
+          <Tooltip
+            title={isSubmitDisabled ? 'Select a rating first' : 'Submit your rating'}
+            placement="right"
+            enterDelay={500}
+          >
+            <span style={{ display: 'inline-flex' }}>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={handleSubmit}
+                disabled={isSubmitDisabled}
+                sx={{ borderRadius: 3, boxShadow: 5, height: '60px', typography: 'body1' }}
+              >
+                Submit
+              </Button>
+            </span>
+          </Tooltip>
+        </Box>
+      )}
+    </>
   );
 };
 

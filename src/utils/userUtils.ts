@@ -2,7 +2,7 @@ import type { User, Rating } from '../types/index';
 
 const USER_KEY = 'medical_image_classification_user';
 
-export function getOrCreateUser(): User {
+export function getOrCreateUserBrowser(): User {
   const storedUser = localStorage.getItem(USER_KEY);
   if (storedUser) return JSON.parse(storedUser) as User;
 
@@ -15,7 +15,7 @@ export function getOrCreateUser(): User {
   return newUser;
 }
 
-export function saveUserRating(user: User, rating: Rating): User {
+export function saveUserRatingBrowser(user: User, rating: Rating): User {
   const isDuplicateRating = user.ratings.some(r => r.imageId === rating.imageId);
 
   let updatedRatings: Rating[];
@@ -30,5 +30,11 @@ export function saveUserRating(user: User, rating: Rating): User {
   const updatedUser = { ...user, ratings: updatedRatings };
   localStorage.setItem(USER_KEY, JSON.stringify(updatedUser));
 
+  return updatedUser;
+}
+
+export function resetUserRatingsBrowser(user: User): User {
+  const updatedUser = { ...user, ratings: [] };
+  localStorage.setItem(USER_KEY, JSON.stringify(updatedUser));
   return updatedUser;
 }

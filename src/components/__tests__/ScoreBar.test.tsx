@@ -1,0 +1,16 @@
+// src/components/__tests__/ScoreBar.test.tsx
+import { render, screen, fireEvent } from '@testing-library/react';
+import { vi } from 'vitest';
+import ScoreBar from '../ScoreBar';
+
+test('renders all score buttons and selects the correct one', () => {
+  const setScore = vi.fn();
+  render(<ScoreBar currentScore={5} setScore={setScore} />);
+
+  expect(screen.getByText('5')).toBeInTheDocument();
+
+  const button = screen.getByText('7');
+  fireEvent.click(button);
+
+  expect(setScore).toHaveBeenCalledWith(7);
+});

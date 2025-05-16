@@ -7,4 +7,9 @@ const imageUrls: string[] = [
   'https://niivue.github.io/niivue-demo-images/chris_t2.nii.gz',
 ];
 
+// const imageUrls: string[] = [
+//   'https://niivue.github.io/niivue-demo-images/CT_AVM.nii.gz',
+// ];
+
+
 export default imageUrls
