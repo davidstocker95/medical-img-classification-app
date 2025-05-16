@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState } from "react";
 import {
   Box,
   Button,
@@ -8,21 +8,17 @@ import {
   Tooltip,
   Chip,
   Stack,
-} from '@mui/material';
+} from "@mui/material";
 
-import ChatIcon from '@mui/icons-material/Chat';
-import AddIcon from '@mui/icons-material/Add';
-import DoDisturbAltIcon from '@mui/icons-material/DoDisturbAlt';
-import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import ChatIcon from "@mui/icons-material/Chat";
+import AddIcon from "@mui/icons-material/Add";
+import DoDisturbAltIcon from "@mui/icons-material/DoDisturbAlt";
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 
-import { getButtonStyles, modalBoxStyle } from './RatingComment.styles';
-import type { RatingTag } from '../types';
+import { getButtonStyles, modalBoxStyle } from "./RatingComment.styles";
+import type { RatingTag } from "../types";
 
-const RATING_TAGS: RatingTag[] = [
-  'ambiguous',
-  'artifact',
-  'non-pathalogical',
-];
+const RATING_TAGS: RatingTag[] = ["ambiguous", "artifact", "non-pathalogical"];
 
 interface RatingCommentProps {
   comment: string;
@@ -31,6 +27,17 @@ interface RatingCommentProps {
   setTags: (tags: RatingTag[]) => void;
 }
 
+/**
+ * RatingComment
+ *
+ * A modal interface for adding a comment and optional tags to an image rating.
+ * Opens from a tooltip-enabled button.
+ *
+ * Features:
+ * - Text input with Enter-to-save
+ * - Selectable tags (toggle chips)
+ * - Clear, cancel, and save actions
+ */
 const RatingComment = ({ comment, setComment, tags, setTags }: RatingCommentProps) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [localComment, setLocalComment] = useState(comment);
@@ -45,7 +52,7 @@ const RatingComment = ({ comment, setComment, tags, setTags }: RatingCommentProp
   const closeModal = () => setModalOpen(false);
 
   const clearAll = () => {
-    setLocalComment('');
+    setLocalComment("");
     setLocalTags([]);
   };
 
@@ -56,7 +63,7 @@ const RatingComment = ({ comment, setComment, tags, setTags }: RatingCommentProp
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
+    if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
       saveChanges();
     }
@@ -82,32 +89,25 @@ const RatingComment = ({ comment, setComment, tags, setTags }: RatingCommentProp
             label="Comment"
             multiline
             minRows={4}
-            variant="outlined"
             fullWidth
             value={localComment}
             onChange={(e) => setLocalComment(e.target.value)}
             onKeyDown={handleKeyDown}
           />
 
-          <Stack
-            direction="row"
-            spacing={1}
-            useFlexGap
-            sx={{ mt: 2, justifyContent: 'center', flexWrap: 'wrap' }}
-          >
+          <Stack direction="row" spacing={1} sx={{ mt: 2, justifyContent: "center", flexWrap: "wrap" }}>
             {RATING_TAGS.map((tag) => (
               <Chip
                 key={tag}
                 label={tag}
                 color="primary"
-                variant={localTags.includes(tag) ? 'filled' : 'outlined'}
+                variant={localTags.includes(tag) ? "filled" : "outlined"}
                 onClick={() => toggleTag(tag)}
-                sx={{ cursor: 'pointer' }}
               />
             ))}
           </Stack>
 
-          <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 4 }}>
+          <Box sx={{ display: "flex", justifyContent: "space-between", mt: 4 }}>
             <Button variant="outlined" startIcon={<DoDisturbAltIcon />} onClick={closeModal}>
               Cancel
             </Button>
