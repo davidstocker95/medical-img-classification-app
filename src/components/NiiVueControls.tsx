@@ -1,11 +1,15 @@
-import { useState } from 'react';
-import { Box } from '@mui/material';
+import { useState } from "react";
+import { Box } from "@mui/material";
 
-import { useDraggablePanel } from '../hooks/useDraggablePanel';
-import { getNiiVueControlsStyles } from './NiiVueControls.styles';
-import { SliceTypeMap } from '../types';
-import type { ColorMap, XYPosition, BoxDimensions } from '../types';
-import { ControlMinimized, ControlHeader, ControlSelector } from './NiiVueControlsComponents';
+import { useDraggablePanel } from "../hooks/useDraggablePanel";
+import { getNiiVueControlsStyles } from "./NiiVueControls.styles";
+import { SliceTypeMap } from "../types";
+import type { ColorMap, XYPosition, BoxDimensions } from "../types";
+import {
+  ControlMinimized,
+  ControlHeader,
+  ControlSelector,
+} from "./NiiVueControlsComponents";
 
 type Props = {
   sliceType: string;
@@ -14,11 +18,21 @@ type Props = {
   onColorMapChange: (val: ColorMap) => void;
 };
 
-const colorMaps: ColorMap[] = ['viridis', 'inferno', 'gray'];
+const colorMaps: ColorMap[] = ["viridis", "inferno", "gray"];
 
 const fullDimension: BoxDimensions = { width: 220, height: 180 };
 const minimizedDimension: BoxDimensions = { width: 92, height: 92 };
 
+/**
+ * NiiVueControls
+ *
+ * A draggable, minimizable panel that lets the user:
+ * - Switch slice view mode (axial, coronal, etc.)
+ * - Change colormap used for rendering
+ * - Collapse panel to a toggle button
+ *
+ * Integrates with `useDraggablePanel` to support drag and position clamping.
+ */
 const NiiVueControls = ({
   sliceType,
   onSliceTypeChange,
@@ -27,6 +41,7 @@ const NiiVueControls = ({
 }: Props) => {
   const [isMinimized, setIsMinimized] = useState(false);
 
+  // Calculate initial position near bottom-right
   const initialMargin = Math.min(window.innerWidth, window.innerHeight) / 20;
   const initialPosition: XYPosition = {
     x: window.innerWidth - fullDimension.width - initialMargin,
@@ -46,25 +61,25 @@ const NiiVueControls = ({
 
   return (
     <Box onMouseDown={handleMouseDown} sx={getNiiVueControlsStyles(position, dimensions)}>
-      {isMinimized
-        ? <ControlMinimized toggleMinimize={toggleMinimize} />
-        : (
-          <>
-            <ControlHeader toggleMinimize={toggleMinimize} />
-            <ControlSelector
-              label="Slice Type"
-              value={sliceType}
-              onChange={onSliceTypeChange}
-              options={Object.keys(SliceTypeMap)}
-            />
-            <ControlSelector<ColorMap>
-              label="Color Map"
-              value={colorMap}
-              onChange={onColorMapChange}
-              options={colorMaps}
-            />
-          </>
-        )}
+      {isMinimized ? (
+        <ControlMinimized toggleMinimize={toggleMinimize} />
+      ) : (
+        <>
+          <ControlHeader toggleMinimize={toggleMinimize} />
+          <ControlSelector
+            label="Slice Type"
+            value={sliceType}
+            onChange={onSliceTypeChange}
+            options={Object.keys(SliceTypeMap)}
+          />
+          <ControlSelector<ColorMap>
+            label="Color Map"
+            value={colorMap}
+            onChange={onColorMapChange}
+            options={colorMaps}
+          />
+        </>
+      )}
     </Box>
   );
 };

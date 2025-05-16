@@ -5,14 +5,23 @@ import {
   FormControl,
   InputLabel,
   Typography,
-  IconButton
-} from '@mui/material';
-import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
-import TuneIcon from '@mui/icons-material/Tune';
+  IconButton,
+} from "@mui/material";
+import FullscreenExitIcon from "@mui/icons-material/FullscreenExit";
+import TuneIcon from "@mui/icons-material/Tune";
 
-import { niiVueMinimizedControlsStyles } from './NiiVueControls.styles';
+import { niiVueMinimizedControlsStyles } from "./NiiVueControls.styles";
 
-export const ControlMinimized = ({ toggleMinimize }: { toggleMinimize: () => void }) => (
+/**
+ * ControlMinimized
+ *
+ * Renders a toggle button used to restore the full control panel.
+ */
+export const ControlMinimized = ({
+  toggleMinimize,
+}: {
+  toggleMinimize: () => void;
+}) => (
   <Box
     display="flex"
     justifyContent="center"
@@ -33,7 +42,16 @@ export const ControlMinimized = ({ toggleMinimize }: { toggleMinimize: () => voi
   </Box>
 );
 
-export const ControlHeader = ({ toggleMinimize }: { toggleMinimize: () => void }) => (
+/**
+ * ControlHeader
+ *
+ * Displays a title bar and a minimize button.
+ */
+export const ControlHeader = ({
+  toggleMinimize,
+}: {
+  toggleMinimize: () => void;
+}) => (
   <Box
     display="flex"
     justifyContent="space-between"
@@ -56,6 +74,11 @@ export const ControlHeader = ({ toggleMinimize }: { toggleMinimize: () => void }
   </Box>
 );
 
+/**
+ * ControlSelector
+ *
+ * Generic dropdown component for selecting values (slice type, color map, etc.)
+ */
 type ControlSelectorProps<T extends string> = {
   label: string;
   value: T;
