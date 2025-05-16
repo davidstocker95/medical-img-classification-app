@@ -3,7 +3,7 @@ import type { XYPosition, BoxDimensions } from "../../types";
 /**
  * Returns style object for draggable control panel.
  * 
- * @param {XYPosition} position - The current position of the panel.
+ * @param {XYPosition} position - The current top left corner of the panel.
  * @param {BoxDimensions} dimensions - The dimensions of the panel.
  * @returns {object} - The style object for the control panel.
  */

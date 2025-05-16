@@ -1,10 +1,14 @@
 import { Box, Typography, IconButton } from "@mui/material";
 import FullscreenExitIcon from "@mui/icons-material/FullscreenExit";
 
+interface ControlHeaderProps {
+  toggleMinimize: () => void;
+  title?: string;
+}
 /**
  * ControlHeader
  *
- * Displays a title bar and a minimize button.
+ * Displays a title bar and a minimize button for the control panel.
  *
  * Features/Responsibilities:
  * - Shows a title label for the controls section
@@ -21,10 +25,8 @@ import FullscreenExitIcon from "@mui/icons-material/FullscreenExit";
  */
 
 export const ControlHeader = ({
-  toggleMinimize,
-}: {
-  toggleMinimize: () => void;
-}) => (
+  toggleMinimize, title = "Image Controls"
+}: ControlHeaderProps) => (
   <Box
     display="flex"
     justifyContent="space-between"
@@ -33,7 +35,7 @@ export const ControlHeader = ({
     onMouseDown={(e) => e.preventDefault()}
   >
     <Typography variant="body1" sx={{ mb: 1 }}>
-      Image Controls
+      {title}
     </Typography>
     <IconButton
       size="small"
