@@ -42,6 +42,7 @@ const Header = () => {
   const { user, images } = useContext(AppContext);
   const [minutesSpent, setMinutesSpent] = useState<number>(getStoredTime());
 
+  // Increment the stored time in localStorage every minute
   useEffect(() => {
     const interval = setInterval(() => {
       incrementStoredTime();

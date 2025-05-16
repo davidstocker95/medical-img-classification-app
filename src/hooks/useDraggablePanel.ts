@@ -78,10 +78,8 @@ export function useDraggablePanel(
     }));
   }, [panelDimensions, borderMargin]);
 
-  /**
-   * Call this when the panel's content changes size (e.g., shrink on layout change).
-   * Shifts position to accommodate new dimensions.
-   */
+  // Call this when the panel's content changes size (e.g., shrink on layout change).
+  // Shifts position to accommodate new dimensions.
   const adjustPositionForSizeChange = useCallback(
     (from: BoxDimensions, to: BoxDimensions) => {
       const deltaX = from.width - to.width;

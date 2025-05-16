@@ -47,6 +47,8 @@ const TerminationDialog = () => {
   }, [images, user]);
 
   // Restart the rating process
+  // Clears the user's ratings and resets the image state
+  // Sets the next image to be rated
   const restartRating = () => {
     const updatedUser = { ...user, ratings: [] };
     setUser(updatedUser);
