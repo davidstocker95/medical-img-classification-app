@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from 'react';
+import { useContext, useState, useEffect } from "react";
 import {
   Button,
   Dialog,
@@ -6,20 +6,33 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
-} from '@mui/material';
+} from "@mui/material";
 
-import { AppContext } from '../context/AppContext';
-import { hasUserRatedAllImages } from '../utils/ratingUtils';
-import { resetUserRatingsBrowser } from '../utils/userUtils';
-import { getNextImage } from '../utils/imageUtils';
+import { AppContext } from "../context/AppContext";
+import { hasUserRatedAllImages } from "../utils/ratingUtils";
+import { resetUserRatingsBrowser } from "../utils/userUtils";
+import { getNextImage } from "../utils/imageUtils";
 
 const terminationDialogStyle = {
   borderRadius: 5,
   px: 4,
   py: 3,
-  textAlign: 'center',
+  textAlign: "center",
 };
 
+/**
+ * TerminationDialog
+ *
+ * This modal appears when the user has rated all available images.
+ * It displays the total count of rated images and offers an option to restart the rating process.
+ *
+ * Behavior:
+ * - Shows automatically when `user.ratings.length === images.length`
+ * - Clicking "Restart" clears local ratings and fetches the next image
+ *
+ * Context:
+ * - Reads `user`, `images`, `setUser`, `setImage` from AppContext
+ */
 const TerminationDialog = () => {
   const { user, setUser, images, setImage } = useContext(AppContext);
   const [isRatingComplete, setIsRatingComplete] = useState(false);
@@ -39,22 +52,24 @@ const TerminationDialog = () => {
   };
 
   const numberOfRatedImages = user.ratings.length;
+
   return (
     <Dialog
       open={isRatingComplete}
       onClose={() => {}}
-      slotProps={{ paper: { sx: terminationDialogStyle }}}
+      slotProps={{ paper: { sx: terminationDialogStyle } }}
     >
-      <DialogTitle >Rating Complete!</DialogTitle>
+      <DialogTitle>Rating Complete!</DialogTitle>
 
       <DialogContent>
         <DialogContentText>
-          You have rated {numberOfRatedImages} {(numberOfRatedImages === 1) ? "image": "images"}.
+          You have rated {numberOfRatedImages}{" "}
+          {numberOfRatedImages === 1 ? "image" : "images"}.
         </DialogContentText>
         <DialogContentText>Thank you for your work!</DialogContentText>
       </DialogContent>
 
-      <DialogActions sx={{ justifyContent: 'center', mt: 2 }}>
+      <DialogActions sx={{ justifyContent: "center", mt: 2 }}>
         <Button variant="contained" color="primary" onClick={restartRating}>
           Restart
         </Button>
