@@ -1,6 +1,9 @@
-import type { Rating } from './rating';
+import type { Rating } from "./rating";
 
+/**
+ * Represents an anonymous user with persistent ID and ratings history.
+ */
 export interface User {
-  id: string;               // persistent ID stored in localStorage
-  ratings: Rating[];        // array of ratings
+  id: string;
+  ratings: Rating[];
 }
