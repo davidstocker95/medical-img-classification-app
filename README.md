@@ -1,54 +1,106 @@
-# React + TypeScript + Vite
+# Medical Image Rating App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a React + TypeScript application built for scoring medical images using [NiiVue](https://github.com/niivue/niivue), a WebGL-based medical image viewer. It allows anonymous users to view medical images, rate them, and optionally add comments and tags. The app uses localStorage to persist user state between sessions. 
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## Expanding the ESLint configuration
+- View medical images in 2D and 3D using **NiiVue**
+- Anonymous user tracking via persistent browser ID
+- Rate images on a scale from 1 to 10
+- Add optional comments per image
+- Add optional tags per image
+- Change slice layout (axial, sagittal, coronal, etc.)
+- Prevent double scoring of the same image
+- Track and display total time spent rating
+- Draggable image control panel
+- Fully client-side — no backend required
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## Tech Stack
+
+- **React** with **TypeScript**
+- **Vite** for fast development
+- **Material UI (MUI)** for the UI framework
+- **NiiVue** for image visualization
+
+
+## Folder Structure
+
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+src/
+├── components/       # Reusable components like ScoreBar, NiiVueCanvas
+├── context/          # App-wide context for user, image state
+├── hooks/            # Custom hooks (e.g., useDraggablePanel)
+├── types/            # Centralized TypeScript interfaces / types
+├── utils/            # Utility functions (storage, time tracking, etc.)
+├── data/             # Image URLs
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+````
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+
+## Getting Started
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/davidstocker95/medical-img-classification-app.git
+cd medical-image-rating-app
+````
+
+### 2. Install dependencies
+
+```bash
+npm install
 ```
+
+
+### 3. Run Tests
+
+This project uses **Vitest** and **@testing-library/react** for unit and integration testing.
+Run the tests with:
+
+```bash
+npm run test
+```
+
+### 4. Start the development server
+
+Run with Vite's fast dev server and hot module replacement (HMR):
+
+```bash
+npm run dev
+```
+
+Then open [http://localhost:5173](http://localhost:5173) in your browser.
+
+
+## Build for Production
+
+```bash
+npm run build
+```
+
+This will generate a static production build in the `dist/` folder.
+
+
+## Deploy to Vercel
+
+1. Go to [https://vercel.com](https://vercel.com) and log in or create an account.
+
+2. Click **"New Project"** and import your GitHub repository.
+
+3. Choose:
+
+   * **Framework Preset**: `Vite`
+   * **Output Directory**: `dist`
+   * Leave the rest default (Vercel auto-detects Vite)
+
+4. Click **Deploy** — your app will be live on a Vercel subdomain.
+
+
+## License
+
+MIT — feel free to fork and adapt this project.
+
