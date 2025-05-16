@@ -1,13 +1,15 @@
+import type { XYPosition, BoxDimensions } from "../types";
 
 export const getNiiVueControlsStyles = (
-  position: { x: number; y: number }
+  position: XYPosition,
+  dimensions: BoxDimensions,
 ) => ({
   position: 'absolute',
   top: position.y,
   left: position.x,
   zIndex: 100,
-  width: '220px',
-  height: '180px',
+  width: dimensions.width,
+  height: dimensions.height,
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',

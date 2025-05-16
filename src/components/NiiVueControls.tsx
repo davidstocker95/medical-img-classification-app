@@ -20,16 +20,17 @@ const NiiVueControls = ({
   onColorMapChange,
 }: Props) => {  
   const panelDimension: BoxDimensions = { width: 220, height: 180 };
+  const initialPanelMargin = Math.min(window.innerWidth, window.innerHeight) / 20;
   const initialPosition: XYPosition = { 
-    x: window.innerWidth - panelDimension.width - 50,
-    y: window.innerHeight - panelDimension.height - 50, 
+    x: window.innerWidth - panelDimension.width - initialPanelMargin,
+    y: window.innerHeight - panelDimension.height - initialPanelMargin, 
   };
   const { position, handleMouseDown } = useDraggablePanel(initialPosition, panelDimension);
 
   return (
     <Box
       onMouseDown={handleMouseDown}
-      sx={getNiiVueControlsStyles(position)}
+      sx={getNiiVueControlsStyles(position, panelDimension)}
     >
       <Typography 
         variant="body1" 

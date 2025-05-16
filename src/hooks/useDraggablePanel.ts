@@ -4,6 +4,7 @@ import type { XYPosition, BoxDimensions } from '../types';
 export function useDraggablePanel(
 	initialPosition: XYPosition,
   panelDimensions: BoxDimensions,
+  borderMargin: number = 6
 ) {
   const [position, setPosition] = useState<XYPosition>(initialPosition);
   const isDragging = useRef<boolean>(false);
@@ -33,14 +34,27 @@ export function useDraggablePanel(
     isDragging.current = false;
   }, []);
 
+  const handleWindowResize = useCallback(() => {
+    const maxLeft = window.innerWidth - panelDimensions.width - borderMargin;
+    const maxTop = window.innerHeight - panelDimensions.height - borderMargin;
+
+    setPosition(prev => ({
+      x: Math.max(0, Math.min(prev.x, maxLeft)),
+      y: Math.max(0, Math.min(prev.y, maxTop)),
+    }));
+  }, [panelDimensions, borderMargin]);
+
   useEffect(() => {
     window.addEventListener('mousemove', handleMouseMove);
     window.addEventListener('mouseup', handleMouseUp);
+    window.addEventListener('resize', handleWindowResize);
+
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('mouseup', handleMouseUp);
+      window.removeEventListener('resize', handleWindowResize);
     };
-  }, [handleMouseMove, handleMouseUp]);
+  }, [handleMouseMove, handleMouseUp, handleWindowResize]);
 
   return {
     position,
